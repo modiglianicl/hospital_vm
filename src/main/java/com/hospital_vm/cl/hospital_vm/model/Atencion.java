@@ -2,6 +2,8 @@ package com.hospital_vm.cl.hospital_vm.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Id;
 
 import jakarta.persistence.Column;
@@ -35,6 +37,7 @@ public class Atencion {
 
     @ManyToOne
     @JoinColumn(name = "id_paciente", nullable = false,updatable = false)  // Define la columna de clave foránea
+    @JsonManagedReference
     private Paciente paciente;  // Cada atencion tiene un solo paciente
 
 

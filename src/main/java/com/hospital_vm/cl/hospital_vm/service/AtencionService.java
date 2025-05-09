@@ -1,5 +1,6 @@
 package com.hospital_vm.cl.hospital_vm.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,9 @@ public class AtencionService {
         nuevaAtencion.setPaciente(pacienteExistente.get());
         atencionRepository.save(nuevaAtencion);
         return nuevaAtencion;
+    }
+
+    public List<Atencion> findAllAtenciones() {
+        return atencionRepository.findAll();
     }
 }
