@@ -43,4 +43,32 @@ public class AtencionService {
     public List<Atencion> findAllAtenciones() {
         return atencionRepository.findAll();
     }
+
+    public Atencion actualizarAtencion(Atencion atencion, Integer id){
+        Optional<Atencion> atencionExistente = atencionRepository.findById(id);
+
+        if(atencionExistente.isPresent()){
+            atencionExistente.get().setFechaAtencion(atencion.getFechaAtencion());
+            return atencionExistente.get();
+        }
+
+        throw new RuntimeException("La atencion no existe!");
+    }
+
+    public Atencion actualizarAtencion(Integer idAtencion,Atencion atencion){
+        Optional<Atencion> atencionExistente = atencionRepository.findById(idAtencion);
+        Optional<Paciente> pacienteExistente = pacienteRepository.findById(atencion.getPaciente().getId());
+
+
+        if(pacienteExistente.isPresent() && atencionExistente.isPresent()){
+            atencionExistente.get().setPaciente(pacienteExistente.get());;
+            atencionExistente.get().setFechaAtencion(atencion.getFechaAtencion());
+            System.out.println(atencionExistente.get().getPaciente().getNombre());
+            System.out.println(atencionExistente.get().getPaciente().getId());
+            return atencionExistente.get();
+        } else {
+            throw new RuntimeException("La atencion o el paciente no existen!");
+        }
+
+    }
 }
