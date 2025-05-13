@@ -1,6 +1,5 @@
 HELP.md
 *.env
-variables.env
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

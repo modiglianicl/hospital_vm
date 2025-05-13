@@ -2,7 +2,6 @@ package com.hospital_vm.cl.hospital_vm.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/api/v1/pacientes")
 public class PacienteController {
@@ -27,19 +25,19 @@ public class PacienteController {
     PacienteService pacienteService;
 
     @GetMapping
-    public ResponseEntity<List<Paciente>> verPacientes(){
+    public ResponseEntity<List<Paciente>> verPacientes() {
         List<Paciente> pacientes = pacienteService.findAllPacientes();
         System.out.println("Mostrando pacientes...");
-        if(pacientes.isEmpty()){
+        if (pacientes.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
         return ResponseEntity.ok(pacientes);
-        
+
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Paciente> verPacientePorId(@PathVariable int id){
+    public ResponseEntity<Paciente> verPacientePorId(@PathVariable int id) {
         try {
             Paciente paciente = pacienteService.findPacienteById(id);
             return ResponseEntity.ok(paciente);
@@ -51,12 +49,17 @@ public class PacienteController {
 
     @PostMapping("")
     public ResponseEntity<Paciente> guardarPaciente(@RequestBody Paciente nuevoPaciente) {
-        Paciente pacienteCreado = pacienteService.savePaciente(nuevoPaciente);
-        return new ResponseEntity<>(pacienteCreado,HttpStatus.CREATED);
+        try {
+            Paciente pacienteCreado = pacienteService.savePaciente(nuevoPaciente);
+            return new ResponseEntity<>(pacienteCreado, HttpStatus.CREATED);
+        } catch (Exception e) {
+           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Paciente> actualizarPaciente(@PathVariable Integer id,@RequestBody Paciente paciente){
+    public ResponseEntity<Paciente> actualizarPaciente(@PathVariable Integer id, @RequestBody Paciente paciente) {
         try {
             Paciente pac = pacienteService.findPacienteById(id);
             pac.setId(id);
@@ -68,16 +71,15 @@ public class PacienteController {
 
             pacienteService.savePaciente(pac);
             return ResponseEntity.ok(pac);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error : " + e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarPaciente(@PathVariable Integer id){
+    public ResponseEntity<?> eliminarPaciente(@PathVariable Integer id) {
 
-        
         try {
             Paciente pacienteEliminar = pacienteService.findPacienteById(id);
             pacienteService.deletePaciente(pacienteEliminar.getId());
@@ -86,5 +88,5 @@ public class PacienteController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
 }

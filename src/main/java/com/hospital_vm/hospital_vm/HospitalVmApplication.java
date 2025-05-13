@@ -1,4 +1,4 @@
-package com.hospital_vm.cl.hospital_vm;
+package com.hospital_vm.hospital_vm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
