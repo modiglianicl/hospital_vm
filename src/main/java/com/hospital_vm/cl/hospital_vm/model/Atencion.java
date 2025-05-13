@@ -33,6 +33,7 @@ public class Atencion {
     @Temporal(TemporalType.DATE)
     private Date fechaAtencion;
 
+
     @ManyToOne
     @JoinColumn(name = "id_paciente", nullable = false)  // Define la columna de clave foránea
     private Paciente paciente;  // Cada atencion tiene un solo paciente
