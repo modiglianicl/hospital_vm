@@ -84,7 +84,7 @@ public class pacienteController {
             pacienteService.borrarPacientePorRur(rut);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error : " + e.getMessage());
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -94,7 +94,7 @@ public class pacienteController {
             Paciente pacienteParchar = pacienteService.parcharPaciente(rut, paciente);
             return ResponseEntity.ok(pacienteParchar);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.notFound().build();
         }
     }
 

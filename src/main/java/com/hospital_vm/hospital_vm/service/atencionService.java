@@ -14,11 +14,11 @@ import com.hospital_vm.hospital_vm.repository.atencionRepository;
 public class atencionService {
 
     @Autowired
-    atencionRepository atencionRepository;
+    private atencionRepository atencionRepository;
     @Autowired
-    pacienteService pacienteService;
+    private pacienteService pacienteService;
     @Autowired
-    doctorService doctorService;
+    private doctorService doctorService;
 
     public List<Atencion> verAtenciones() {
         return atencionRepository.findAll();
@@ -36,7 +36,7 @@ public class atencionService {
                 nuevaAtencion.setDoctor(doctorAtencion.get());
                 atencionRepository.save(nuevaAtencion);
             } else {
-                throw new RuntimeException("Paciente no existe!");
+                throw new RuntimeException("Paciente o doctor no existe!");
             }
         } catch (Exception e) {
             throw new RuntimeException("Error! : " + e.getMessage());
